@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,10 @@ public class Config
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> DIMENSION_STRINGS = BUILDER
             .comment("A list of dimensions to set as unbreathable [name;lower;upper] (name required, bounds optional)")
             .defineListAllowEmpty("dimensions", List.of("minecraft:overworld;0;128", "minecraft:the_nether", "minecraft:the_end"), Config::validateDimensionName);
+
+    private static final ForgeConfigSpec.EnumValue<TickingType> TICKING_TYPE = BUILDER
+            .comment("What type of entities to tick for breathing [" + TickingType.displayString() + "]")
+            .defineEnum("ticking_type", TickingType.PLAYERS_ONLY);
 
     static final ForgeConfigSpec COMMON_SPEC = BUILDER.build();
 
@@ -50,4 +55,34 @@ public class Config
     }
 
     public record DimensionBounds(String dim, int lower, int upper){}
+
+    public enum TickingType {
+        PLAYERS_ONLY("players_only"),
+        ALL_LIVING("all_living");
+
+        private static final Map<String, TickingType> BY_LABEL = new HashMap<>();
+        static {
+            for (TickingType e : values()) {
+                BY_LABEL.put(e.label, e);
+            }
+        }
+
+        public static TickingType valueOfLabel(String label) {
+            return BY_LABEL.get(label);
+        }
+
+        public final String label;
+        TickingType(final String label) {
+            this.label = label;
+        }
+
+        public static String displayString(){
+            StringBuilder output = new StringBuilder();
+            for (TickingType t : values()) {
+                output.append(t.label).append(",");
+            }
+            output.deleteCharAt(output.length() - 1);
+            return output.toString();
+        }
+    }
 }

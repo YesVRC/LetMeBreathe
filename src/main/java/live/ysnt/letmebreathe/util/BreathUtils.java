@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.Unique;
 public class BreathUtils {
 
     @Unique
-    public static boolean outOfRange(LivingEntity entity){
+    public static boolean inBreathableAir(LivingEntity entity){
+        String location = entity.level().dimension().location().toString();
+        double yLevel = entity.getEyeY();
         for (Config.DimensionBounds bounds : Config.dimensions){
-            ResourceLocation location = entity.level().dimension().location();
-            if(location.toString().equals(bounds.dim())){
-                double yLevel = entity.getEyeY();
-                return yLevel <= bounds.lower() || yLevel >= bounds.upper();
+            if(location.equals(bounds.dim())){
+                return yLevel >= bounds.lower() && yLevel <= bounds.upper();
             }
         }
         return true;
