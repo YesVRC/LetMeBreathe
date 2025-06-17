@@ -40,7 +40,7 @@ You can change the FluidType of vanilla blocks I'm pretty sure, or better yet ju
 You can have air-like blocks with different properties. As long as canDrown is true it should be fine, whatever you do.
 
 I have my event set to the highest priority. As a gentleman's code, I propose this:
-I take highest, Block Entities (or other non-items) can take highest, and items take last.
+I take highest, Block Entities (or other non-items) can take high, and items take last.
 
 This mod affects the world, so it should apply first. I don't have to worry about resource consumption.
 
