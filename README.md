@@ -13,7 +13,7 @@ If you must, add your own FluidType and have it do stuff
 Instead use:
 ### LivingBreatheEvent
 
-It's an easily subscribed to method, and gives you get/set access to canBreathe and canRefillAir
+It's an easily subscribed to event, and gives you get/set access to canBreathe and canRefillAir
 To refill air (normally) both must be true.
 
 [Create's Diving Helmet does this](https://github.com/Creators-of-Create/Create/blob/mc1.20.1/dev/src/main/java/com/simibubi/create/content/equipment/armor/DivingHelmetItem.java#L123)
